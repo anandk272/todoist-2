@@ -1,0 +1,31 @@
+<div class="p-8 w-full">
+    <div class="header mb-3" >
+        <h1 class="font-bold text-2xl ">Inbox</h1>
+        <div></div>
+    </div>
+    <div>
+        <div *ngFor="let task of tasks" class="flex justify-between " >
+            <div class="left">
+                   <p class="text-md" >{{task.title}}</p>
+                   <p class="text-sm text-gray-400">{{task.description}}</p>
+            </div>
+            <div class="right">
+                <button>
+                    <mat-icon>edit</mat-icon>
+
+                </button>
+               
+                <button (click)="delete(task)">
+                    <mat-icon>delete</mat-icon>
+
+                </button>
+            </div>
+    
+        </div>
+
+    </div>
+    
+    
+    <h4 class="text-gray-500 flex items-center " [ngStyle]="{display:!toggle?'flex':'none'}"><mat-icon (click)='toggle=!toggle' class="text-red-500 rounded-full self-center mr-3 p-0 ">add</mat-icon> Add Task</h4>
+    <app-task-form [ngStyle]="{display:toggle?'unset':'none'}" [(toggle)]="toggle" ></app-task-form>
+</div>
