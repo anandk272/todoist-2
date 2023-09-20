@@ -1,0 +1,56 @@
+<div class="fixed top-0 w-full min-h-full bg-red left-0 flex justify-center items-center bg-black bg-opacity-10">
+    <div class="bg-white w-1/2 shadow-xl rounded-md" >
+        <div class="flex p-2 border-b border-gray-300 justify-between items-center">
+            <p class="text-sm">{{parent.project}}</p>
+            <button (click)="handleClose()">
+                <mat-icon class="text-sm">close</mat-icon>
+
+            </button>
+            
+        </div>
+        <div class="flex ">
+            <div class="left flex-1 p-4 flex w-full">
+                <button (click)="completeTask(parent)" class="h-5 w-5 mr-2 border rounded-full hover:border-red-400 transition-all duration-500" ><mat-icon class="text-red-400 text-sm opacity-0 hover:opacity-100 transition-all ">check</mat-icon> </button>
+               
+                <div class="flex-1 h-fit">
+                    <h1 class="text-xl font-bold">{{parent.title}}</h1>
+                    <p class="text-gray-500 pt-2 ">{{parent.description}}</p>
+                    <p class="text-xs text-gray-500 mb-10 pt-2">Due Date:{{parent.date | date}}</p>
+                    <div *ngFor="let sub of parent.subtasks" class="group flex py-2 border-b border-gray-200 justify-between w-full relative">
+                        <div class="flex" >
+                            <button disabled="true" *ngIf="sub.completed" class="h-5 w-5 mr-2 border-gray-300 rounded-full bg-gray-300 " ><mat-icon class="text-white text-sm ">check</mat-icon> </button>
+                            
+                            
+                            <button *ngIf="!sub.completed" (click)="completeSubtask(sub)"  class="h-5 w-5 mr-2 border border-gray-200 rounded-full hover:border-red-400 transition-all duration-500" ><mat-icon class="text-red-400 text-sm opacity-0 hover:opacity-100 transition-all ">check</mat-icon> </button>
+                            <div>
+                            <p class="font-thin text-base text-gray-400" [ngStyle]="{'text-decoration':sub.completed?'line-through':'unset'}">{{sub.title}}</p>
+                            <p class="font-thin text-sm text-gray-400" [ngStyle]="{'text-decoration':sub.completed?'line-through':'unset'}">{{sub.description}}</p>
+                            <p class="font-thin text-xs text-gray-400" [ngStyle]="{'text-decoration':sub.completed?'line-through':'unset'}">{{sub.date | dateFormater}}</p>
+                            
+                   
+
+                            </div>
+                        </div>
+                        <button (click)="deleteSubtask(sub)" class="opacity-0 group-hover:opacity-100 duration-150 transition-all"><mat-icon class="text-xs text-gray-500">delete</mat-icon></button>
+                         </div>
+                    <button *ngIf="!show_addTask" class="text-gray-400 text-sm flex items-center self-center py-2" (click)="show_addTask=!show_addTask"><mat-icon class="text-red-400 ">add</mat-icon> Add subtask</button>
+                    <app-task-form *ngIf="show_addTask" class="w-full" [(toggle)]="show_addTask" [isSubTask]="true" [parent]="parent" (parentChange)="refreshParent()"></app-task-form>
+                    
+                    
+                </div>
+
+                
+            </div>
+            <div class="right rounded-r-md bg-gray-100 p-4 min-w-max [&>h2]:text-gray-500 [&>h2]:text-xs [&>p]:border-b [&>p]:text-xs [&>p]:pb-2 [&>*]:mb-4 w-1/4">
+                <h2>Project</h2>
+                <p>{{parent.project}}</p>
+                <h2>Due date</h2>
+                <p>{{parent.date | dateFormater}}</p>
+                <h2>Prority</h2>
+                <p>P{{parent.priority}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+

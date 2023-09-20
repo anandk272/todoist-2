@@ -1,0 +1,36 @@
+
+<div class="flex items-center justify-center h-full">
+    <div class="left w-1/4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Todoist_logo.png" class="h-9 mb-12" alt="">
+        <h1 *ngIf="login===false" class="text-3xl font-bold text-gray-800 mb-6">Sign Up</h1>
+       
+        <h1 *ngIf="login===true" class="text-3xl font-bold text-gray-800 mb-6">LogIn  </h1>
+       
+        <form action="" class="flex flex-col" [formGroup]="loginForm">
+            <div [ngStyle]="{'border-color':loginForm.controls.email.invalid && loginForm.controls.email.touched?'red':'rgb(156 163 175 / var(--tw-border-opacity))'}" class="flex flex-col border-gray-400 border rounded-md p-2 ">
+                <label class="text-xs mb-1" for="">email</label>
+                <input class="outline-none" type="text" placeholder="enter your email" formControlName="email">    
+            </div>
+            <p class="text-red-600 text-xs" *ngIf="loginForm.controls.email.hasError('required') && loginForm.controls.email.touched">This field is required</p>
+            <p class="text-red-600 text-xs" *ngIf="loginForm.controls.email.hasError('pattern') && loginForm.controls.email.touched">Invalid email</p>
+           
+            <div [ngStyle]="{'border-color':loginForm.controls.password.invalid && loginForm.controls.password.touched?'red':'rgb(156 163 175 / var(--tw-border-opacity))'}" class="flex flex-col border-gray-400 border rounded-md p-2 mt-4">
+                <label class="text-xs mb-1" for="">password</label>
+                <input class="outline-none" type="password" placeholder="enter your password" formControlName="password">
+            </div>
+            <p class="text-red-600 text-xs" *ngIf="loginForm.controls.password.hasError('minlength') && loginForm.controls.password.touched">minimum 8 characters required</p>
+            <p class="text-red-600 text-xs" *ngIf="loginForm.controls.password.hasError('required') && loginForm.controls.password.touched">This field is required</p>
+           
+            <button *ngIf="login===false" class="bg-red-500 text-white py-2 font-semibold text-lg rounded-md mt-4 " (click)="signUp()">Sign Up</button>
+            <button *ngIf="login===true" class="bg-red-500 text-white py-2 font-semibold text-lg rounded-md mt-4 " (click)="logIn()" >Login</button>
+            
+            
+        </form>
+        <p *ngIf="login===false" class="font-thin text-sm">Already signed up? go to <span class="" (click)="login=true ">login</span></p>
+        <p *ngIf="login===true" class="font-thin text-sm">Donot have an accout? go to <span class="" (click)="login=false">Register</span></p>
+
+    </div>
+    <div class="right">
+
+    </div>
+</div>

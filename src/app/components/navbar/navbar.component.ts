@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
@@ -7,13 +8,15 @@ import { DataService } from 'src/app/services/data/data.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(private dataService:DataService){}
+  constructor(private dataService:DataService,private route:Router){}
+  @Output() OpenDialog=new EventEmitter<boolean>(true)
   ngOnInit(): void {
     this.dataService.$task.subscribe((res)=>{
-      console.log('task observer subscribed',res)
       
     })
-
+  }
+  handleDialog(){
+    this.OpenDialog.emit(!this.OpenDialog)
   }
 
 }

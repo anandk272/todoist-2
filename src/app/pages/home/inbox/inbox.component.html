@@ -1,14 +1,5 @@
-<app-navbar (OpenDialog)="dialog=!dialog"></app-navbar>
-<div *ngIf="dialog" class="w-full h-full fixed flex items-center justify-center" >
-    <div class="w-2/3  drop-shadow-xl">
-        <app-task-form [(dialog)]="dialog"></app-task-form>
-    </div> 
-</div>
- <app-simple-dialog *ngIf="simpleDialog" [(display)]="simpleDialog"></app-simple-dialog>
-<div class="flex min-h-full w-screen pt-12 [&>app-inbox]:w-full [&>app-completed]:w-full">
-    <app-sidebar (displayChange)="simpleDialog=true" ></app-sidebar>
-    <router-outlet></router-outlet>
-<!-- <div class="p-8 w-full">
+<app-task-details *ngIf="taskDetailsDialog" [parent]="parent" [(display)]="taskDetailsDialog"></app-task-details>
+<div class="p-8 w-full flex-1">
     <div class="header mb-3" >
         <h1 class="font-bold text-2xl ">Inbox</h1>
         <div></div>
@@ -17,11 +8,18 @@
         <div *ngFor="let task of tasks" class="group flex justify-between border-b border-gray-200 p-2  " >
             <div class="left flex">
                 <button class="h-5 w-5 mr-2 border rounded-full hover:border-red-400 transition-all duration-500" (click)="completeTask(task)"><mat-icon class="text-red-400 text-sm opacity-0 hover:opacity-100 transition-all ">check</mat-icon> </button>
-                <div>
+                <div (click)="handleTaskDetails(task)">
                     <p class="text-md " >{{task.title}}</p>
                     <p class="text-sm text-gray-400 mb-2">{{task.description}}</p>
-                    <p class="text-xs text-gray-400" [ngStyle]="{'color':(task.date|dateFormater)==='Today'?'red':null}" >{{task.date | dateFormater}}</p>
-         
+                    <div class="flex">
+                        <p class="text-xs text-gray-400" [ngStyle]="{'color':(task.date|dateFormater)==='Today'?'green':(task.date|dateFormater)==='Over Due'?'red':null}" >{{task.date | dateFormater}}</p>
+                        <p *ngIf="task.subtasks?.length" class="text-xs text-gray-400 ml-2 items-center">
+                            <mat-icon  class="text-xs text-gray-400">timeline</mat-icon>
+                            {{task.subtasks?.length}}
+
+                        </p>
+
+                    </div>
 
                 </div>
             </div>
@@ -44,5 +42,4 @@
     
     <h4 class="text-gray-500 flex items-center " [ngStyle]="{display:!toggle?'flex':'none'}"><mat-icon (click)='handleToggle()' class="text-red-500 rounded-full self-center mr-3 p-0 ">add</mat-icon> Add Task</h4>
     <app-task-form *ngIf="toggle" [(toggle)]="toggle" [task]="update_task" [isUpdate]="isUpdate "  ></app-task-form>
-</div> -->
 </div>

@@ -1,9 +1,41 @@
-<div class="flex flex-col w-full border-gray-200 border p-3 rounded-md">
-    <input type="text" [(ngModel)]="task.title" placeholder="Task name" class="outline-none mb-1 px-1 text-lg font-bold">
-    <input type="text" [(ngModel)]="task.description" placeholder="Description" class="outline-none mb-1 px-1">
-    <div class="flex justify-end border-t border-gray-200 pt-3">
-        <button class="bg-gray-200 text-gray-600">Cancel</button>
-        <button class="bg-red-600 text-white" (click)="handleClick()">Add task</button>
+<div class="flex flex-col w-full border-gray-200 border p-3 rounded-md bg-white" >
+    <input type="text" [(ngModel)]="task.title" placeholder="Task name" class="outline-none mb-1 px-1 text-lg font-bold" >
+    <input type="text" [(ngModel)]="task.description" placeholder="Description" class="outline-none mb-3 px-1" >
+    <div  class="flex items-center pb-2" >
+      <p (click)="displayCalendar=!displayCalendar" class="border-gray-200 border rounded-md text-green-400 text-xs  px-2 py-0.5 text-center mr-1 ">
+        {{task.date |dateFormater}}
+    </p>
+        
+
+    <!-- <p class="border-gray-200 border rounded-md text-xs text-gray-400 px-2 py-0.5 ">
+        priority
+    </p> -->
+    <select class="border-gray-200 border rounded-md text-xs text-gray-400 px-2 py-0.5 outline-none" (change)="priorityChange($event)">
+        <option class="" [value]='1'>Prority 1</option>
+        <option value={{2}}>Prority 2</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+
+    </select>
+   </div>
+    <div class="flex justify-between border-t border-gray-200 pt-3 relative">
+        <select class=" font-bold text-xs text-gray-500 px-2 py-0.5 outline-none flex" (change)="projectChange($event)"  >
+            <option value="Inbox" selected>Inbox</option>
+            <option *ngFor="let project of projects" [value]="project">{{project}}</option>
+
+        </select>
+        
+        <div *ngIf="displayCalendar" class="absolute bg-white left-6 top-2 w-1/4 min-w-[200px] shadow-lg rounded" #calendar>
+            <mat-calendar  [(selected)]="defaultTask.date" (selectedChange)="handleDatepicker($event)" [minDate]="today"></mat-calendar>
+        
+
+        </div>
+         <div>
+            <button class="bg-gray-200 text-gray-600" (click)="resetTask()" >Cancel</button>
+            <button *ngIf="isSubTask" [ngStyle]="{'opacity':task.title.length?'1':'.5'}" class="bg-red-600 text-white" (click)="handleSubtask()"  [disabled]="!task.title.length">Add Subtask</button>
+     
+            <button *ngIf="!isSubTask" [ngStyle]="{'opacity':task.title.length?'1':'.5'}" class="bg-red-600 text-white" (click)="handleClick()" [disabled]="!task.title.length">Add task</button>
+        </div>
     </div>
 
 </div>

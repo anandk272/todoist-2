@@ -1,5 +1,13 @@
-<div class="w-64 bg-gray-100 h-full flex flex-col">
-    <a href="">Inbox</a>
-    <a href="">Today</a>
-    <a href="">Upcoming</a>
+<div class="w-64 bg-gray-100 h-full flex flex-col p-4 [&>a]:text-sm [&>a]:pt-2 ">
+    <a [routerLink]="['/home/inbox']" class="flex items-center" ><mat-icon class="material-icons-outlined text-lg font-thin flex self-center text-blue-400">mail</mat-icon> Inbox</a>
+    <a class="flex items-center" ><mat-icon class="material-icons-outlined text-lg font-thin  flex items-center text-green-300">calendar_today</mat-icon>Today</a>
+    <a  class="flex items-center" ><mat-icon class="material-icons-outlined text-lg font-thin flex items-center text-violet-300">dataset</mat-icon>Upcoming</a>
+    <a [routerLink]="['/home/completed']" class="flex items-center" ><mat-icon class="material-icons-outlined text-lg font-thin flex items-center text-violet-300">cached</mat-icon>Activity</a>
+
+    <div class="flex justify-between text-gray-500 mt-8 cursor-pointer" (click)="displayChange.emit(true)" ><h3 class="">Projects</h3><mat-icon class="text-base">add</mat-icon></div>
+    <a *ngFor="let project of projects?.projects" href="">
+        {{project}}
+    </a>
+    <a class="flex items-center" >Angular</a>
+  
 </div>

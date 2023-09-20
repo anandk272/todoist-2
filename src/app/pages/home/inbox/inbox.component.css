@@ -2,7 +2,3 @@
     height: auto !important;
     width: unset !important;
 }
-.width-inbox{
-    display: none;
-    flex: 1;
-}

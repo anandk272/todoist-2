@@ -1,11 +1,16 @@
-<div class="h-12 w-full bg-red-600 flex items-center px-4 opacity-70">
-    <div class="left flex items-center">
-        <mat-icon class="text-white mr-1" >menu</mat-icon>
-        <mat-icon class="text-white">home</mat-icon>
-
-    </div>
-    <div class="right">
+<div class="h-12 w-full bg-red-400 flex items-center px-4  justify-between fixed top-0">
+    <div class="start flex items-center ">
+        
+            <a routerLink="/completed-tasks"><mat-icon class="text-white mr-1 material-icons-outlined"  >menu</mat-icon></a>
+            <a class="flex items-center" routerLink="/"><mat-icon class="text-white ">home</mat-icon></a>
+        
+       
         
 
+    </div>
+    <div class="right ">
+            <button class="flex items-center" (click)="handleDialog()">
+                <mat-icon class="text-white" >add</mat-icon>
+            </button>
     </div>
 </div>
